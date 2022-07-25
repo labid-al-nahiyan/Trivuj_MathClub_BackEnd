@@ -1,5 +1,5 @@
 const express = require('express');
-const handle = require('./handle');
+const handle = require('./sql');
 
 const router = express.Router({mergeParams:true})
 

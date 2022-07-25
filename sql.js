@@ -1,11 +1,11 @@
 
-const func = require('./func');
+const func = require('./Connection');
 
 
 const handle = {}
 
 handle.run = async ()=>{
-    const sql =`SELECT * FROM EMPLOYEES`
+    const sql =`SELECT * FROM Member`
     
     const binds = {}
 

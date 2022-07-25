@@ -1,19 +1,11 @@
-const express = require('express')
-const app = express()
 const port = 3010
-const cors=require('cors')
-app.use(express.json());
-app.use(cors())
 
-const func = require('./func');
-const handle = require('./handle');
-const about = require('./about')
-
-app.use('/about',about);
+const app = require('./app');
+const connection = require('./Connection');
 
 app.listen(port,async()=>{
   try{
-    await func.startup();
+    await connection.startup();
     console.log("listen on port 3010")
   }
   catch(err){

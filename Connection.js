@@ -10,7 +10,7 @@ func.options = {
 func.startup = async()=>{
     console.log('starting up database.');
     await oracledb.createPool({
-        user: "hr",
+        user: "T2L2_Project",
         password: "orcl",
         connectstring: "localhost/ORCL",
         poolMin: 4,
