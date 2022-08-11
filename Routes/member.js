@@ -9,8 +9,6 @@ router.post('/create', async(req,res)=>{
       
       console.log(req.body);
 
-      
-
       const {name,firstName,lastName,password} = req.body;
       const type = "student"
 
@@ -36,6 +34,7 @@ router.post('/create', async(req,res)=>{
      
       console.log(typeof(result));
       res.json(result)
+
     }
     catch(err){
       console.log(err)
