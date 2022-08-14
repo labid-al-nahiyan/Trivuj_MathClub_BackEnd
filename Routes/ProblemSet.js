@@ -18,6 +18,32 @@ router.post('/addProblem', async(req,res)=>{
       console.log(err)
     }  
   })
+  router.get('/getProblem', async(req,res)=>{
+    try{
+      
+
+      const result = await query.getProblem()
+      res.json(result);
+    
+    }
+    catch(err){
+      console.log(err)
+    }  
+  })
+  router.get('/getStatement/:id', async(req,res)=>{
+    try{
+      const id =await req.params.id;
+      console.log(id);
+       const result = await query.getStatement(id);
+       console.log(result)
+      // res.json(result);
+      res.json(result);
+    
+    }
+    catch(err){
+      console.log(err)
+    }  
+  })
 
     
   

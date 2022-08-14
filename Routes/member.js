@@ -9,10 +9,9 @@ router.post('/create', async(req,res)=>{
       
       console.log(req.body);
 
-      const {name,firstName,lastName,password} = req.body;
-      const type = "student"
+      const {name,firstName,lastName,password,DOB,email,phone,Institution,city,classNo} = req.body;
 
-      const result = await query.create(name,firstName,lastName,password,type)
+      const result = await query.create(name,firstName,lastName,password,DOB,email,phone,Institution,city,classNo)
      
       res.end();
     
@@ -28,7 +27,6 @@ router.post('/create', async(req,res)=>{
       console.log(req.body);
 
       const {name,password} = req.body;
-      // const type = "student"
 
       const result = await query.verify(name,password)
      

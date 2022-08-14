@@ -4,13 +4,14 @@ const connct = require('../Connection');
 
 const handle = {}
 
-handle.create = async (userName, firstName, lastName, password,type )=>{
+handle.create = async (userName,firstName,lastName,password,DOB,email,phone,Institution,city,classNo )=>{
+    const fullName = firstName + ' '+lastName;
     const sql = `
-        INSERT INTO T2L2_PROJECT.MEMBER (USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,MEMBER_TYPE)
-        VALUES (:userName,:password,:firstName,:lastName,:type)
+        INSERT INTO T2L2_PROJECT.MEMBERS (NAME,USERNAME,PASSWORD,EMAIL,PHONE,CLASS,CITY,DOB,INSTITUTION)
+        VALUES (:fullName,:userName,:password,:email,:phone,:classNo,:city,TO_DATE(:DOB,'YYYY-MM-DD'),:Institution)
     `
     
-    const binds = {userName, firstName, lastName, password,type}
+    const binds = {fullName,userName,password,email,phone,classNo,city,DOB,Institution}
 
     const result=  (await connct.execute(sql,binds,connct.options))
     return result;
@@ -18,8 +19,8 @@ handle.create = async (userName, firstName, lastName, password,type )=>{
 handle.verify = async (userName, password )=>{
     const sql = `
         Select * 
-        From T2L2_PROJECT.MEMBER
-        WHERE USERNAME =:userName AND PASSWORD =:password
+        From T2L2_PROJECT.MEMBERS
+        WHERE Username =:userName AND Password =:password
     `
     
     const binds = {
