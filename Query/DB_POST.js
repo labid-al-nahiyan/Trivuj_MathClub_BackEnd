@@ -4,27 +4,43 @@ const connct = require('../Connection');
 
 const handle = {}
 
-handle.create = async (userName, firstName, lastName, password,type )=>{
+handle.add = async (title,description,POSTER_ID )=>{
+    console.log(POSTER_ID , typeof(POSTER_ID));
     const sql = `
-        INSERT INTO T2L2_PROJECT.POST (USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,MEMBER_TYPE)
-        VALUES (:userName,:password,:firstName,:lastName,:type)
+        INSERT INTO T2L2_PROJECT.POST (POSTER_ID,TITLE, DESCRIPTION)
+        VALUES (:posterId,:title,:description)
     `
     
-    const binds = {userName, firstName, lastName, password,type}
+    const binds = {title:title,description:description,posterId:POSTER_ID}
 
     const result=  (await connct.execute(sql,binds,connct.options))
     return result;
 }
-handle.verify = async (userName, password )=>{
-    const sql = `
-        Select * 
-        From T2L2_PROJECT.MEMBER
-        WHERE USERNAME =:userName AND PASSWORD =:password
-    `
+handle.getPost = async ()=>{
     
+    const sql = 
+        `
+        Select M.NAME,P.poster_id,P.title,P.description,to_char(P.POST_DATE, 'HH12:MMam,DDmonYYYY') AS postDate
+        From POST P Join MEMBERS M ON P.poster_id = M.ID
+        `
     const binds = {
-        userName :userName,
-        password :password
+       
+    }
+
+    const result=  (await connct.execute(sql,binds,connct.options)).rows
+    console.log(result);
+    return result;
+}
+handle.getMyPost = async ({poster_id})=>{
+    
+    const sql = 
+        `
+        Select M.NAME,P.poster_id,P.title,P.description,to_char(P.POST_DATE, 'HH12:MMam,DDmonYYYY') AS postDate
+        From POST P Join MEMBERS M ON P.poster_id = M.ID
+        WHERE P.poster_id=:poster_id
+        `
+    const binds = {
+        poster_id:poster_id
     }
 
     const result=  (await connct.execute(sql,binds,connct.options)).rows
