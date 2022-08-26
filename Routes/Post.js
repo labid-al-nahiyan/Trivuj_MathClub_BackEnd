@@ -4,6 +4,11 @@ const router = express.Router({mergeParams:true})
 
 const query = require('../Query/DB_POST.js');
 
+
+const comment = require('./Comment')
+
+
+router.use('/comment',comment);
 router.post('/create', async(req,res)=>{
     try{
       
@@ -11,7 +16,7 @@ router.post('/create', async(req,res)=>{
       const {title,description, organizerID} = req.body;
       const result = await query.add(title,description,organizerID)
      
-      res.send(result);
+      res.json(req.body);
     
     }
     catch(err){

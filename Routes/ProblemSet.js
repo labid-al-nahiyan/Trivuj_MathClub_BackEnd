@@ -21,10 +21,20 @@ router.post('/addProblem', async(req,res)=>{
   router.get('/getProblem', async(req,res)=>{
     try{
       
-
       const result = await query.getProblem()
       res.json(result);
     
+    }
+    catch(err){
+      console.log(err)
+    }  
+  })
+  router.post('/getProblem/filter', async(req,res)=>{
+    try{
+      const {tag} = req.body;
+      const result = await query.getProblemFilter(tag)
+      console.log(result)
+      res.json(result);
     }
     catch(err){
       console.log(err)
